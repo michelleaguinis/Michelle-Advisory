@@ -43,8 +43,8 @@
   .btn-secondary { font-family: -apple-system, sans-serif; font-size: 15px; padding: 14px 32px; border: 1px solid var(--border); color: var(--muted); border-radius: 8px; cursor: pointer; background: none; }
   .btn-secondary:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
 
-  .creds { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; max-width: 680px; margin: 0 auto; }
-  .cred { flex: 1; padding: 20px 16px; text-align: center; border-right: 1px solid var(--border); }
+  .creds { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; max-width: 100%; margin: 0 auto; }
+  .cred { flex: 1; padding: 20px 16px; text-align: center; border-right: 1px solid var(--border); white-space: nowrap; }
   .cred:last-child { border-right: none; }
   .cred-title { font-family: -apple-system, sans-serif; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .cred-value { font-size: 14px; color: var(--text); }
@@ -120,8 +120,9 @@
     <a href="#about">About</a>
     <a href="#services">Services</a>
     <a href="#process">Process</a>
+    
   </div>
-  <a class="nav-cta" href="https://calendly.com/michelleaguinis/15min" target="_blank">Work with Michelle</a>
+  <a class="nav-cta" href="https://calendly.com/michelleaguinis/15-minute-meeting" target="_blank">Work with Michelle</a>
 </nav>
 
 <section class="hero" style="max-width:100%; padding-left:48px; padding-right:48px;">
@@ -129,7 +130,7 @@
   <h1>Raise your next round<br>with a <em>real</em> insider</h1>
   <p class="hero-sub">Strategic fundraising guidance for early-stage founders — from an investor who's been on the other side of the table.</p>
   <div class="hero-actions">
-    <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Apply to work together</button>
+    <button class="btn-primary" onclick="window.open('https://calendly.com/michelleaguinis/15-minute-meeting','_blank')">Work with Michelle</button>
     <button class="btn-secondary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">See how it works</button>
   </div>
   <div class="creds">
@@ -149,6 +150,7 @@
       <div class="about-photo">
         <img src="michelle.jpg" alt="Michelle Aguinis">
       </div>
+
     </div>
     <div class="about-text">
       <p>I've spent years on the <strong>other side of the table</strong>, evaluating hundreds of raises and seeing exactly what separates the companies that close from the ones that don't.</p>
@@ -158,6 +160,7 @@
         <div class="about-stat"><div class="about-stat-num">8+ yrs</div><div class="about-stat-label">VC + strategy experience</div></div>
         <div class="about-stat"><div class="about-stat-num">1,000+</div><div class="about-stat-label">companies evaluated</div></div>
         <div class="about-stat"><div class="about-stat-num">$50M+</div><div class="about-stat-label">capital deployed</div></div>
+
       </div>
     </div>
   </div>
@@ -231,14 +234,17 @@
   </div>
 </section>
 
+
+
+<div class="divider"></div>
+
 <div class="divider"></div>
 
 <section class="cta-section" style="max-width:100%;" id="contact">
   <div class="cta-inner">
-    <div class="section-label" style="text-align:center;">Apply</div>
     <h2>Ready to raise?</h2>
-    <p>I take on a small number of companies each quarter. If you're approaching your next round and want a real insider in your corner, let's talk.</p>
-    <button class="btn-primary" style="font-size:16px; padding:16px 40px;" onclick="window.open('https://calendly.com/michelleaguinis/15-minute-meeting','_blank')">Apply to work with Michelle</button>
+    <p>If you're approaching your next round and want a real insider in your corner, let's talk.</p>
+    <button class="btn-primary" style="font-size:16px; padding:16px 40px;" onclick="window.open('https://calendly.com/michelleaguinis/15-minute-meeting','_blank')">Work with Michelle</button>
     <p style="font-size:13px; color:var(--muted); margin-top:16px;">Typical response within 48 hours.</p>
   </div>
 </section>
