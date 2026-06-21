@@ -97,6 +97,95 @@
 
   footer { border-top: 1px solid var(--border); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; font-family: -apple-system, sans-serif; font-size: 13px; color: var(--muted); }
 
+  /* =========================================================
+     LinkedIn video banner
+     ========================================================= */
+  .videos-section { padding: 90px 0 96px; max-width: 100%; margin: 0; overflow: hidden; }
+  .videos-head { max-width: 1100px; margin: 0 auto 44px; padding: 0 48px; }
+  .videos-head h2 { margin-bottom: 12px; }
+  .videos-head p { font-family: -apple-system, sans-serif; color: var(--muted); font-size: 16px; max-width: 520px; }
+
+  .video-marquee {
+    position: relative; width: 100%; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  }
+  .video-track {
+    display: flex; gap: 20px; width: max-content; padding: 6px 0;
+    animation: video-scroll 70s linear infinite;
+    will-change: transform;
+  }
+  .video-marquee:hover .video-track,
+  .video-marquee:focus-within .video-track { animation-play-state: paused; }
+
+  @keyframes video-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .video-card {
+    flex: 0 0 300px; width: 300px;
+    border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+    background: var(--navy-mid); display: block; text-align: left; color: inherit; font: inherit;
+    padding: 0; -webkit-appearance: none; appearance: none; cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  .video-card:hover { transform: translateY(-4px); border-color: rgba(79,110,247,0.45); }
+  .video-card:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 3px; }
+
+  .video-thumb {
+    position: relative; aspect-ratio: 16 / 10;
+    background: linear-gradient(140deg, var(--navy-light) 0%, var(--navy-mid) 70%);
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .video-thumb img, .video-thumb video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .video-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(10,15,30,0.55) 100%); }
+  .video-play {
+    position: relative; z-index: 2; width: 54px; height: 54px; border-radius: 50%;
+    background: rgba(10,15,30,0.5); border: 1px solid rgba(255,255,255,0.28);
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  .video-card:hover .video-play { background: var(--accent); transform: scale(1.06); }
+  .video-play svg { width: 18px; height: 18px; margin-left: 3px; fill: #fff; }
+
+  .video-meta { padding: 18px 18px 20px; }
+  .video-title {
+    font-size: 15px; line-height: 1.45; font-weight: 400; color: var(--text);
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 44px;
+  }
+
+  /* Inline player modal — lets visitors watch on the page instead of leaving for LinkedIn */
+  .video-modal {
+    position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; padding: 28px;
+    background: rgba(5,8,18,0.85); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  }
+  .video-modal.open { display: flex; }
+  .video-modal-inner { position: relative; width: min(440px, 100%); }
+  .video-modal-close {
+    position: absolute; top: -46px; right: 0; width: 38px; height: 38px; border-radius: 50%;
+    border: 1px solid var(--border); background: var(--navy-mid); color: var(--text);
+    font-family: -apple-system, sans-serif; font-size: 20px; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .video-modal-close:hover { border-color: rgba(255,255,255,0.3); }
+  /* Frame defaults to vertical (9/16) for typical talking-head clips.
+     For landscape videos, change aspect-ratio to 16 / 9. */
+  .video-modal-frame {
+    position: relative; width: 100%; aspect-ratio: 9 / 16; max-height: 78vh;
+    background: #000; border-radius: 14px; overflow: hidden; border: 1px solid var(--border);
+  }
+  .video-modal-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .video-modal-frame video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: contain; background: #000; }
+  .video-modal-title { font-family: 'Georgia', serif; font-size: 17px; line-height: 1.4; color: var(--text); margin-top: 16px; }
+  .video-modal-link { display: inline-block; margin-top: 10px; font-family: -apple-system, sans-serif; font-size: 13px; color: var(--accent-light); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .video-track { animation: none; }
+    .video-marquee { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  }
+
   @media (max-width: 768px) {
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
@@ -109,6 +198,8 @@
     .cred { min-width: 50%; border-right: none; border-bottom: 1px solid var(--border); }
     footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px 20px; }
     .hero { padding: 100px 20px 60px; }
+    .videos-head { padding: 0 20px; }
+    .video-card { flex-basis: 264px; width: 264px; }
   }
 </style>
 </head>
@@ -221,6 +312,248 @@
     <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
   </div>
 </section>
+
+<div class="divider"></div>
+
+<!-- =========================================================
+     LinkedIn video banner
+     ========================================================= -->
+<section class="videos-section" id="videos" aria-label="Videos">
+  <div class="videos-head">
+    <div class="section-label">On LinkedIn</div>
+    <h2>What I&rsquo;m telling founders</h2>
+    <p>Short, practical videos on what actually moves a round forward.</p>
+  </div>
+  <div class="video-marquee">
+    <div class="video-track" id="videoTrack"><!-- cards injected by JS --></div>
+  </div>
+</section>
+
+<script>
+/* =========================================================================
+   EDIT YOUR VIDEOS HERE  —  LinkedIn embed version
+   -------------------------------------------------------------------------
+   ORDER: newest first. List them top-to-bottom in the same order they appear
+   on your LinkedIn videos page — the banner shows them in exactly that order.
+
+   HOW TO GET each "embedUrl" (about 30 seconds per video, on desktop):
+     1. Open the video post on LinkedIn (the post must be PUBLIC, or the
+        option won't show up).
+     2. Click the "..." (three-dot) menu on the post -> "Embed this post".
+     3. If it offers a format, pick "video-only" for the cleanest player.
+     4. It shows an <iframe ... src="..."> snippet. Copy ONLY the src URL
+        (it looks like the example below) and paste it as embedUrl.
+
+   thumbnail : OPTIONAL cover image (host your own, e.g. "questions-thumb.jpg").
+               Leave "" for the styled placeholder.
+   url       : OPTIONAL link to the post (adds a small "View on LinkedIn" link
+               under the player).
+   ========================================================================= */
+const VIDEOS = [
+  // ---- Example of a fully filled-in entry (replace with your real src URL):
+  // {
+  //   title: "What VCs look for in the first 30 seconds of your deck",
+  //   thumbnail: "",
+  //   embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7300000000000000000",
+  //   url: "https://www.linkedin.com/posts/michelleaguinis_xxxxxxxx"
+  // },
+  //
+  // 15 slots below, newest first. #1 is fully wired and plays. For the other
+  // 14, paste each video's embedUrl (and tweak the title to match the actual
+  // clip). A card shows in the scroll but won't PLAY until its embedUrl is set.
+
+  {
+    title: "The questions you should be asking your investors",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7282486147379806208?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7282486147379806208/"
+  },
+  {
+    title: "How VCs actually make money",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7257774751559946240?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7257774751559946240/"
+  },
+  {
+    title: "How much equity you should give your startup advisor",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7297679520780746753?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7297679520780746753/"
+  },
+  {
+    title: "80/20 rule",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7290757390860193792?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7290757390860193792/"
+  },
+  {
+    title: "Questions to ask investors part 2",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7287559654367232000?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7287559654367232000/"
+  },
+  {
+    title: "The #1 metric investors care about",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7292593064617922561?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7292593064617922561/"
+  },
+  {
+    title: "How many SAFEs it takes to close a round",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7298410500139200512?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7298410500139200512/"
+  },
+  {
+    title: "What VCs look for in your deck",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7338643061326983168?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7338643061326983168/"
+  },
+  {
+    title: "What every founder should know before signing a SAFE",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7236737926548652032?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7236737926548652032/"
+  },
+  {
+    title: "Pre-money vs. post-money SAFEs: what it does to your cap table",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7229917014071414784?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7229917014071414784/"
+  },
+  {
+    title: "The first thing to check on any SAFE",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7231695730850103296?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7231695730850103296/"
+  },
+  {
+    title: "How to run a fundraise process that creates real leverage",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7264660355564380160?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7264660355564380160/"
+  },
+  {
+    title: "Warm intros vs. cold outreach: what actually converts",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7290028302314975232?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7290028302314975232/"
+  },
+  {
+    title: "Liquidation preferences: who actually gets paid first in an exit",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7239300606929088514?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7239300606929088514/"
+  },
+  {
+    title: "Questions to ask investors part 3",
+    thumbnail: "",
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7260317913901928449?compact=1",
+    url: "https://www.linkedin.com/feed/update/urn:li:ugcPost:7260317913901928449/"
+  }
+];
+
+(function () {
+  var track = document.getElementById('videoTrack');
+  if (!track) return;
+
+  var videos = VIDEOS; // shown in listed order (newest first)
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  var playIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+
+  function cardHTML(v, i) {
+    var media = v.thumbnail ? '<img src="' + esc(v.thumbnail) + '" alt="" loading="lazy">' : '';
+    return (
+      '<button type="button" class="video-card" data-idx="' + i + '" aria-label="Play video: ' + esc(v.title) + '">' +
+        '<div class="video-thumb">' + media + '<span class="video-play">' + playIcon + '</span></div>' +
+        '<div class="video-meta">' +
+          '<div class="video-title">' + esc(v.title) + '</div>' +
+        '</div>' +
+      '</button>'
+    );
+  }
+
+  // Render once, then duplicate the set so the marquee loops seamlessly.
+  var oneSet = videos.map(cardHTML).join('');
+  track.innerHTML = oneSet + oneSet;
+
+  // Ease the scroll speed based on how many videos there are.
+  var seconds = Math.max(40, videos.length * 12);
+  track.style.animationDuration = seconds + 's';
+
+  // ---- Inline player modal ------------------------------------------------
+  var modal = document.createElement('div');
+  modal.className = 'video-modal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.setAttribute('aria-label', 'Video player');
+  modal.innerHTML =
+    '<div class="video-modal-inner">' +
+      '<button type="button" class="video-modal-close" aria-label="Close video">\u00d7</button>' +
+      '<div class="video-modal-frame" id="videoModalFrame"></div>' +
+      '<div class="video-modal-title" id="videoModalTitle"></div>' +
+      '<a class="video-modal-link" id="videoModalLink" target="_blank" rel="noopener">View on LinkedIn \u2192</a>' +
+    '</div>';
+  document.body.appendChild(modal);
+
+  var frame = modal.querySelector('#videoModalFrame');
+  var titleEl = modal.querySelector('#videoModalTitle');
+  var linkEl = modal.querySelector('#videoModalLink');
+  var closeBtn = modal.querySelector('.video-modal-close');
+  var lastFocus = null;
+
+  function onKey(e) { if (e.key === 'Escape' || e.key === 'Esc') closeModal(); }
+
+  function openModal(v) {
+    var inner = '';
+    if (v.videoSrc) {
+      inner = '<video controls autoplay playsinline src="' + esc(v.videoSrc) + '"></video>';
+    } else if (v.embedUrl) {
+      inner = '<iframe src="' + esc(v.embedUrl) + '" allow="autoplay; fullscreen; encrypted-media" allowfullscreen title="' + esc(v.title) + '"></iframe>';
+    } else if (v.url) {
+      // No on-site source provided yet — open the post so the link still works.
+      window.open(v.url, '_blank', 'noopener');
+      return;
+    } else {
+      return;
+    }
+    frame.innerHTML = inner;
+    titleEl.textContent = v.title || '';
+    if (v.url) { linkEl.href = v.url; linkEl.style.display = 'inline-block'; }
+    else { linkEl.style.display = 'none'; }
+    lastFocus = document.activeElement;
+    modal.classList.add('open');
+    track.style.animationPlayState = 'paused';
+    document.addEventListener('keydown', onKey);
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    frame.innerHTML = '';                 // stops playback / audio
+    track.style.animationPlayState = '';  // resume marquee
+    document.removeEventListener('keydown', onKey);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+
+  track.addEventListener('click', function (e) {
+    var card = e.target.closest('.video-card');
+    if (!card) return;
+    var idx = parseInt(card.getAttribute('data-idx'), 10);
+    if (!isNaN(idx) && videos[idx]) openModal(videos[idx]);
+  });
+})();
+</script>
 
 
 <footer>
